@@ -1,0 +1,86 @@
+---
+
+
+  const {alt, src, category} = Astro.props
+   const products = await fetch("https://ujeckodeljhzamhwlhsj.supabase.co/rest/v1/products",{
+    method: "GET",
+    headers: {
+        apikey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVqZWNrb2RlbGpoemFtaHdsaHNqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTU1MDI3ODIsImV4cCI6MjAzMTA3ODc4Mn0.qKKBr9i_Jy2NzTfbu_jinScWs6PmGaBMoeK-1WHbmcU"
+    }
+  }).then((res) => res.json());
+---
+
+
+  <!--   <div class="container">
+        <div class="cloth_container">
+            {products.map(product => {
+            if (product.category === category) {
+                return (
+                    <div class="card" draggable="true" key={product.id}>
+                            <img src={product.image} alt={product.imageAlt || alt} />
+                    </div>
+        
+                );
+            }
+            })}
+        </div>
+    </div> -->
+
+    <article class="container">
+        <div class="card" draggable="true">
+            <img src={src} alt={alt}>
+        </div>
+    </article> 
+
+<style>
+    
+   
+    .container{
+        position: relative;
+
+    }
+    
+    .card{
+        width: 110px;
+        height:110px;
+        border-radius: black;
+        /* position: absolute; */
+    }
+ 
+
+   
+</style>
+
+<script>
+    let offsetX = 0, offsetY = 0;
+     let isMoving = false;
+    document.querySelectorAll('.card').forEach(card => {
+   
+
+    card.addEventListener("click", toggleMove)
+
+  function toggleMove(e) {
+    card.style.position = "absolute";
+        if (!isMoving) {
+            // Start moving the card
+            offsetX = e.clientX - card.offsetLeft;
+            offsetY = e.clientY - card.offsetTop;
+            document.addEventListener("mousemove", mouseMove);
+            isMoving = true;
+        } else {
+            // Stop moving the card
+            document.removeEventListener("mousemove", mouseMove);
+            isMoving = false;
+        }
+    }
+
+    function mouseMove(e){
+        const newLeft = e.clientX - offsetX;
+        const newTop = e.clientY - offsetY;
+        card.style.left = newLeft + 'px';
+        card.style.top = newTop + 'px';
+    }
+      });
+
+ 
+</script>

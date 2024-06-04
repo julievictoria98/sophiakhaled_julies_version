@@ -1,0 +1,98 @@
+---
+import DressUpImg from "../components/game/DressUpImg.astro";
+import MainLayout from "../layouts/MainLayout.astro"
+  const products = await fetch("https://ujeckodeljhzamhwlhsj.supabase.co/rest/v1/products",{
+    method: "GET",
+    headers: {
+        apikey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVqZWNrb2RlbGpoemFtaHdsaHNqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTU1MDI3ODIsImV4cCI6MjAzMTA3ODc4Mn0.qKKBr9i_Jy2NzTfbu_jinScWs6PmGaBMoeK-1WHbmcU"
+    }
+  }).then((res) => res.json());
+  
+---
+<MainLayout>
+    <div class="container">
+        <img id="dress_up_doll" src="../../src/img/dress_up_doll.png" alt="">
+            <div class="cloth_cotainer">
+                <div class="cloth_grid">
+                        {
+                        //For hver ITEM indeni array'et "items", så returnerer vi et Card med et enkelt ITEM som prop.
+                        products.map((product) => {
+                        if (product.category === "tops") {
+                            return  <DressUpImg  src={product.image} />;
+                        }
+                        })
+                    }
+                </div>
+                <div class="cloth_grid" >
+                        {
+                        //For hver ITEM indeni array'et "items", så returnerer vi et Card med et enkelt ITEM som prop.
+                        products.map((product) => {
+                        if (product.category === "bottoms") {
+                            return  <DressUpImg  src={product.image} />;
+                        }
+                        })
+                    }
+                </div>
+            </div>
+    </div>
+  
+</MainLayout>
+
+<style>
+    .container{
+        margin-top: 50px;
+       background-color: rgb(218, 185, 221);
+       height: 100vh;
+       background-size: 4em 4em;
+       display: grid;
+       gap:100px;
+       grid-template-columns: 1fr 2fr; }
+
+    .cloth_cotainer{
+        display: flex;
+        flex-direction: column;
+    }
+.cloth_grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+  #dress_up_doll{
+    width: 400px;  }
+
+    #card{
+        width: 110px;
+        height:110px;
+        background: white;
+        border-radius: black;
+        position: absolute;
+    }
+</style>
+<script>
+    let offsetX = 0, offsetY = 0;
+    const card = document.getElementById('card');
+    let isMoving = false;
+
+    card.addEventListener("click", toggleMove)
+
+  function toggleMove(e) {
+        if (!isMoving) {
+            // Start moving the card
+            offsetX = e.clientX - card.offsetLeft;
+            offsetY = e.clientY - card.offsetTop;
+            document.addEventListener("mousemove", mouseMove);
+            isMoving = true;
+        } else {
+            // Stop moving the card
+            document.removeEventListener("mousemove", mouseMove);
+            isMoving = false;
+        }
+    }
+
+    function mouseMove(e){
+        const newLeft = e.clientX - offsetX;
+        const newTop = e.clientY - offsetY;
+        card.style.left = newLeft + 'px';
+        card.style.top = newTop + 'px';
+    }
+ 
+</script>
