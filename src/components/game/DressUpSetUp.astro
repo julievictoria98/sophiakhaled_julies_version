@@ -1,0 +1,31 @@
+---
+const {category} = Astro.props
+import DressUpImg from "./DressUpImg.astro"
+ const products = await fetch("https://ujeckodeljhzamhwlhsj.supabase.co/rest/v1/products",{
+    method: "GET",
+    headers: {
+        apikey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVqZWNrb2RlbGpoemFtaHdsaHNqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTU1MDI3ODIsImV4cCI6MjAzMTA3ODc4Mn0.qKKBr9i_Jy2NzTfbu_jinScWs6PmGaBMoeK-1WHbmcU"
+    }
+  }).then((res) => res.json());
+---
+
+
+ 
+    <div class="cloth_grid">
+            {
+            //For hver ITEM indeni array'et "items", så returnerer vi et Card med et enkelt ITEM som prop.
+            products.map((product) => {
+            if (product.category === category) {
+                return  <DressUpImg  src={product.image} />;
+            }
+            })
+        }
+    </div>
+
+
+<style>
+    .cloth_grid{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+</style>

@@ -1,5 +1,5 @@
 ---
-import DressUpImg from "../components/game/DressUpImg.astro";
+import DressUpSetUp from "../components/game/DressUpSetUp.astro";
 import MainLayout from "../layouts/MainLayout.astro"
   const products = await fetch("https://ujeckodeljhzamhwlhsj.supabase.co/rest/v1/products",{
     method: "GET",
@@ -10,7 +10,14 @@ import MainLayout from "../layouts/MainLayout.astro"
   
 ---
 <MainLayout>
-    <div class="container">
+        <article class="container">
+            <img id="dress_up_doll" src="../../src/img/dress_up_doll.png" alt="">
+            <DressUpSetUp category="dresses"/>
+            <DressUpSetUp category="tops"/>
+        </article>
+</MainLayout>
+
+   <!--  <div class="container">
         <img id="dress_up_doll" src="../../src/img/dress_up_doll.png" alt="">
             <div class="cloth_cotainer">
                 <div class="cloth_grid">
@@ -34,9 +41,8 @@ import MainLayout from "../layouts/MainLayout.astro"
                     }
                 </div>
             </div>
-    </div>
+    </div> -->
   
-</MainLayout>
 
 <style>
     .container{
@@ -67,7 +73,7 @@ import MainLayout from "../layouts/MainLayout.astro"
         position: absolute;
     }
 </style>
-<script>
+<!-- <script>
     let offsetX = 0, offsetY = 0;
     const card = document.getElementById('card');
     let isMoving = false;
@@ -95,4 +101,4 @@ import MainLayout from "../layouts/MainLayout.astro"
         card.style.top = newTop + 'px';
     }
  
-</script>
+</script> -->
