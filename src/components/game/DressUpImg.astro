@@ -1,16 +1,21 @@
 ---
+  const { data } = Astro.props;
 
-
-  const {alt, src, category, id} = Astro.props
-   const products = await fetch("https://ujeckodeljhzamhwlhsj.supabase.co/rest/v1/products",{
-    method: "GET",
-    headers: {
-        apikey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVqZWNrb2RlbGpoemFtaHdsaHNqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTU1MDI3ODIsImV4cCI6MjAzMTA3ODc4Mn0.qKKBr9i_Jy2NzTfbu_jinScWs6PmGaBMoeK-1WHbmcU"
-    }
-  }).then((res) => res.json());
+ 
 ---
 
 
+    <article class="container">
+        <div class="card" draggable="true">
+            <a href={`/shop/${data.slug}`}>
+                <h2 class="hide">{data.name}</h2>
+                <img src={data.image} alt={data.name}>
+            </a>
+            
+        </div>
+    </article>  
+
+    
 <!--    <div class="container">
         <div class="cloth_container">
             {products.map(product => {
@@ -26,12 +31,6 @@
         </div>
     </div>  -->
 
-    <article class="container">
-        <div class="card" draggable="true" id={id} >
-            <img src={src} alt={alt}>
-        </div>
-    </article>  
-
 <style>
     
    
@@ -39,6 +38,11 @@
         position: relative;
 
     }
+
+    .hide{
+        display: none
+    }
+
     
     .card{
         width: 200px;

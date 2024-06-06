@@ -1,0 +1,49 @@
+---
+import MainLayout from "../layouts/MainLayout.astro"
+import DressUpSetUp from "../components/game/DressUpSetUp.astro";
+
+const { data } = Astro.props;
+
+console.log(data);
+---
+ 
+<MainLayout>
+    <section>
+        <div class="flex_column">
+            <div class="flex_row">
+                <button id="button">Get outfit</button>
+                <button id="btn_tops">Tops</button>
+                <button id="btn_bottoms">Bottoms</button>
+                <button id="btn_dresses">Dresses</button>
+                <button id="btn_accessories">Accessories</button>
+                <button class="button">check</button>
+            </div>
+        </div>
+         <article class="container">
+            <div id="box1">
+                <img id="dress_up_doll" src="../../src/img/dress_up_doll.png" alt="">
+            </div>
+        </article>
+        <div>
+            <DressUpSetUp category="tops" />
+            <DressUpSetUp category="bottoms" />
+            <DressUpSetUp category="dresses" />
+        </div>
+    </section> 
+</MainLayout>
+
+<style>
+      #card{
+        width: 110px;
+        height:110px;
+        background: white;
+        border-radius: black;
+        position: absolute;
+    }
+
+    img{
+        width: 200px;
+    }
+</style>
+
+
