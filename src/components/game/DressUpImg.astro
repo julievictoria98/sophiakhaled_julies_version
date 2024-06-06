@@ -1,7 +1,7 @@
 ---
 
 
-  const {alt, src, category} = Astro.props
+  const {alt, src, category, id} = Astro.props
    const products = await fetch("https://ujeckodeljhzamhwlhsj.supabase.co/rest/v1/products",{
     method: "GET",
     headers: {
@@ -27,7 +27,7 @@
     </div>  -->
 
     <article class="container">
-        <div class="card" draggable="true">
+        <div class="card" draggable="true" id={id} >
             <img src={src} alt={alt}>
         </div>
     </article>  
@@ -41,8 +41,8 @@
     }
     
     .card{
-        width: 110px;
-        height:110px;
+        width: 200px;
+        height:200px;
         border-radius: black;
          /* position: absolute;  */
     }

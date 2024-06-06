@@ -1,58 +1,97 @@
 ---
+
 import DressUpSetUp from "../components/game/DressUpSetUp.astro";
 import MainLayout from "../layouts/MainLayout.astro"
-  const products = await fetch("https://ujeckodeljhzamhwlhsj.supabase.co/rest/v1/products",{
+ export const products = await fetch("https://ujeckodeljhzamhwlhsj.supabase.co/rest/v1/products",{
     method: "GET",
     headers: {
         apikey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVqZWNrb2RlbGpoemFtaHdsaHNqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTU1MDI3ODIsImV4cCI6MjAzMTA3ODc4Mn0.qKKBr9i_Jy2NzTfbu_jinScWs6PmGaBMoeK-1WHbmcU"
     }
   }).then((res) => res.json());
-  
+
 ---
 <MainLayout>
+    <div class="navigation_container">
+        <h1>Shop the look</h1>
+    </div>
+    <section class="flex_column">
+        <div class="flex_row">
+            <button id="button">Get outfit</button>
+            <button id="btn_tops">Tops</button>
+            <button id="btn_bottoms">Bottoms</button>
+            <button id="btn_dresses">Dresses</button>
+            <button id="btn_accessories">Accessories</button>
+            <button class="button">check</button>
+        </div>
+        
         <article class="container">
-            <img id="dress_up_doll" src="../../src/img/dress_up_doll.png" alt="">
-            <DressUpSetUp category="dresses"/>
-            <DressUpSetUp category="tops"/>
-        </article>
-</MainLayout>
-
-   <!--  <div class="container">
-        <img id="dress_up_doll" src="../../src/img/dress_up_doll.png" alt="">
-            <div class="cloth_cotainer">
-                <div class="cloth_grid">
-                        {
-                        //For hver ITEM indeni array'et "items", så returnerer vi et Card med et enkelt ITEM som prop.
-                        products.map((product) => {
-                        if (product.category === "tops") {
-                            return  <DressUpImg  src={product.image} />;
-                        }
-                        })
-                    }
-                </div>
-                <div class="cloth_grid" >
-                        {
-                        //For hver ITEM indeni array'et "items", så returnerer vi et Card med et enkelt ITEM som prop.
-                        products.map((product) => {
-                        if (product.category === "bottoms") {
-                            return  <DressUpImg  src={product.image} />;
-                        }
-                        })
-                    }
-                </div>
+            <div id="box1">
+                <img id="dress_up_doll" src="../../src/img/dress_up_doll.png" alt="">
             </div>
-    </div> -->
+            <div class="box" id="tops">
+                <DressUpSetUp category="tops"/>
+            </div>
+            <div class="box" id="bottoms" >
+                <DressUpSetUp category="bottoms"/>
+            </div>
+            <div class="box" id="dresses" >
+                <DressUpSetUp category="dresses"/>
+            </div>
+             <div class="box none" id="accessories" >
+                <DressUpSetUp category="accessories"/>
+            </div>
+        </article>
+    </section>
+</MainLayout>
   
-
 <style>
+    .navigation_container{
+        display: flex;
+        z-index: 1;
+        width: 400px;
+        gap:50px;
+        background-color: aliceblue;
+        margin:30px
+
+    }
+
+   
     .container{
         margin-top: 50px;
-       background-color: rgb(218, 185, 221);
        height: 100vh;
        background-size: 4em 4em;
        display: grid;
-       gap:100px;
-       grid-template-columns: 1fr 2fr; }
+       row-gap:100px;
+       grid-template-columns: 1fr 4fr;
+     }
+
+     .none{
+        display: none;
+     }
+
+     .flex_column{
+        display: flex;
+        flex-direction: column;
+        background-color: rgb(218, 185, 221);
+        padding-bottom: 300px;
+
+     }
+
+     .flex_row{
+        display: flex;
+        justify-content: space-between;
+        padding-left: 20px;
+        padding-right: 20px;
+     }
+       .box{
+        position: relative;
+
+       }
+
+       .button{
+        background-color: blueviolet;
+        border: 2x black;
+       }
 
     .cloth_cotainer{
         display: flex;
@@ -72,7 +111,87 @@ import MainLayout from "../layouts/MainLayout.astro"
         border-radius: black;
         position: absolute;
     }
+
+    #tops{
+        display:block
+    }
+
+    #bottoms{
+        display:none
+    }
+
+    #dresses{
+        display: none;
+    }
+
+    #accessories{
+        display: none;
+    }
 </style>
+
+<script>
+ function isBoxOverlapping(box, card) {
+        const rect1 = box.getBoundingClientRect();
+        const rect2 = card.getBoundingClientRect();
+
+        return !(rect1.right < rect2.left || 
+                 rect1.left > rect2.right || 
+                 rect1.bottom < rect2.top || 
+                 rect1.top > rect2.bottom);
+    }
+
+function checkOverlap() {
+    const box1 = document.getElementById('box1');
+    const products = document.querySelectorAll('.card');
+
+    // Iterate over all product cards
+    products.forEach(product => {
+        // Check if box1 and current card are overlapping
+        if (isBoxOverlapping(box1, product)) {
+            // Access the product ID and image using the id and src attributes
+            const productId = product.getAttribute('id');
+            const productImgSrc = product.querySelector('img').src;
+            console.log('Box and card are overlapping. Product ID:', productId);
+
+            // Display the product image inside the navigation_container div
+            const navigationContainer = document.querySelector('.navigation_container');
+            const productElement = document.createElement('div');
+            productElement.innerHTML = `
+                <img src="${productImgSrc}" alt="">
+                <p>Product ID: ${productId}</p>
+            `;
+            navigationContainer.appendChild(productElement);
+        }
+    });
+}
+
+
+    // Add event listener for button click to trigger overlap check
+    document.querySelector('.button').addEventListener('click', checkOverlap);
+
+   function showCategory(categoryId) {
+    
+    // Hide all category elements
+    document.querySelectorAll('.box').forEach(box => {
+        box.style.display = 'none';
+    });
+
+    // Show the selected category element
+    const categoryElement = document.getElementById(categoryId);
+    if (categoryElement) {
+        categoryElement.style.display = 'block';
+    }
+
+    
+}
+
+// Adding event listeners for button clicks
+document.getElementById('btn_tops').addEventListener('click', () => showCategory('tops'));
+document.getElementById('btn_bottoms').addEventListener('click', () => showCategory('bottoms'));
+document.getElementById('btn_dresses').addEventListener('click', () => showCategory('dresses'));
+document.getElementById('btn_accessories').addEventListener('click', () => showCategory('accessories'));
+</script>
+
 <!-- <script>
     let offsetX = 0, offsetY = 0;
     const card = document.getElementById('card');
@@ -102,3 +221,30 @@ import MainLayout from "../layouts/MainLayout.astro"
     }
  
 </script> -->
+
+
+   <!--  <div class="container">
+        <img id="dress_up_doll" src="../../src/img/dress_up_doll.png" alt="">
+            <div class="cloth_cotainer">
+                <div class="cloth_grid">
+                        {
+                        //For hver ITEM indeni array'et "items", så returnerer vi et Card med et enkelt ITEM som prop.
+                        products.map((product) => {
+                        if (product.category === "tops") {
+                            return  <DressUpImg  src={product.image} />;
+                        }
+                        })
+                    }
+                </div>
+                <div class="cloth_grid" >
+                        {
+                        //For hver ITEM indeni array'et "items", så returnerer vi et Card med et enkelt ITEM som prop.
+                        products.map((product) => {
+                        if (product.category === "bottoms") {
+                            return  <DressUpImg  src={product.image} />;
+                        }
+                        })
+                    }
+                </div>
+            </div>
+    </div> -->
