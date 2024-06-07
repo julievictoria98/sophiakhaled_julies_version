@@ -82,10 +82,13 @@ const data = await fetch("https://ujeckodeljhzamhwlhsj.supabase.co/rest/v1/produ
         padding-left: 20px;
         padding-right: 20px;
      }
+   
 </style>
 
 <script>
     function showCategory(category) {
+        checkOverlap();
+
         const boxes = document.querySelectorAll(".box");
         for (const box of boxes) {
             const childElements = box.querySelectorAll(".container");
@@ -100,12 +103,46 @@ const data = await fetch("https://ujeckodeljhzamhwlhsj.supabase.co/rest/v1/produ
                 }
             });
         }
+
     }
     // Adding event listeners for button clicks
     document.getElementById('tops_btn').addEventListener('click', () => showCategory('tops'));
     document.getElementById('bottoms_btn').addEventListener('click', () => showCategory('bottoms'));
     document.getElementById('dresses_btn').addEventListener('click', () => showCategory('dresses'));
     document.getElementById('accessories_btn').addEventListener('click', () => showCategory('accessories'));
+
+    //overlapping//
+ function isBoxOverlapping(box, card) {
+        const rect1 = box.getBoundingClientRect();
+        const rect2 = card.getBoundingClientRect();
+
+        return !(rect1.right < rect2.left || 
+                 rect1.left > rect2.right || 
+                 rect1.bottom < rect2.top || 
+                 rect1.top > rect2.bottom);
+    }
+
+function checkOverlap() {
+    const box1 = document.getElementById('box1');
+    const products = document.querySelectorAll('.card');
+
+    // Iterate over all product cards
+    products.forEach(product => {
+        // Check if box1 and current card are overlapping
+        if (isBoxOverlapping(box1, product)) {
+            // Access the product ID and image using the id and src attributes
+            const productId = product.getAttribute('id');
+            console.log('Box and card are overlapping. Product ID:', productId);
+            product.parentNode.classList.add("keep");
+
+        }
+    });
+}
+
+
+    // Add event listener for button click to trigger overlap check
+    document.querySelector('.button').addEventListener('click', checkOverlap);
+
 </script>
 
 
