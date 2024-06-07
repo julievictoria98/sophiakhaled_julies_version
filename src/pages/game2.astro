@@ -2,32 +2,46 @@
 import MainLayout from "../layouts/MainLayout.astro"
 import DressUpSetUp from "../components/game/DressUpSetUp.astro";
 
-const { data } = Astro.props;
 
-console.log(data);
+
+const data = await fetch("https://ujeckodeljhzamhwlhsj.supabase.co/rest/v1/products",
+{
+    method: "GET",
+    headers: {
+        apikey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVqZWNrb2RlbGpoemFtaHdsaHNqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTU1MDI3ODIsImV4cCI6MjAzMTA3ODc4Mn0.qKKBr9i_Jy2NzTfbu_jinScWs6PmGaBMoeK-1WHbmcU"
+    }
+  }).then((res) => res.json());
+
 ---
  
 <MainLayout>
     <section>
         <div class="flex_column">
             <div class="flex_row">
-                <button id="button">Get outfit</button>
-                <button id="btn_tops">Tops</button>
-                <button id="btn_bottoms">Bottoms</button>
-                <button id="btn_dresses">Dresses</button>
-                <button id="btn_accessories">Accessories</button>
                 <button class="button">check</button>
+                <button id="button">Get outfit</button>
+                <button id="tops_btn">Tops</button>
+                <button id="bottoms_btn">Bottoms</button>
+                <button id="dresses_btn">Dresses</button>
+                <button id="accessories_btn">Accessories</button>
             </div>
         </div>
-         <article class="container">
+        <article class="container">
             <div id="box1">
                 <img id="dress_up_doll" src="../../src/img/dress_up_doll.png" alt="">
             </div>
+            <div>
+                <DressUpSetUp data={data} category="tops"/>
+                <DressUpSetUp data={data} category="bottoms"/>
+                <DressUpSetUp data={data} category="dresses"/>
+                <DressUpSetUp data={data} category="accessories"/>
+              
+            </div>
         </article>
-        <div>
-            <DressUpSetUp category="tops" />
+    </section> 
+           <!--  <DressUpSetUp category="tops" />
             <DressUpSetUp category="bottoms" />
-            <DressUpSetUp category="dresses" />
+            <DressUpSetUp category="dresses" /> -->
         </div>
     </section> 
 </MainLayout>
@@ -44,6 +58,56 @@ console.log(data);
     img{
         width: 200px;
     }
+
+     .cloth_grid{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        row-gap:50px
+    }
+
+     .container{
+        margin-top: 50px;
+      
+       display: grid;
+       row-gap:100px;
+       grid-template-columns: 1fr 4fr;
+     }
+
+     #dress_up_doll{
+        width: 400px;
+     }
+     .flex_row{
+        display: flex;
+        justify-content: space-between;
+        padding-left: 20px;
+        padding-right: 20px;
+     }
 </style>
+
+<script>
+    function showCategory(category) {
+        const boxes = document.querySelectorAll(".box");
+        for (const box of boxes) {
+            const childElements = box.querySelectorAll(".container");
+            childElements.forEach((element) => {
+                //forestil dig at elementet har fået class = "keep", hvis elementet overlapper med box1
+                if(element.className.includes(category)) {
+                    element.style.display = "block";
+                } else if (element.className.includes("keep")) {
+                    element.style.display = "block";
+                } else {
+                    element.style.display = "none";
+                }
+            });
+        }
+    }
+    // Adding event listeners for button clicks
+    document.getElementById('tops_btn').addEventListener('click', () => showCategory('tops'));
+    document.getElementById('bottoms_btn').addEventListener('click', () => showCategory('bottoms'));
+    document.getElementById('dresses_btn').addEventListener('click', () => showCategory('dresses'));
+    document.getElementById('accessories_btn').addEventListener('click', () => showCategory('accessories'));
+</script>
+
+
 
 

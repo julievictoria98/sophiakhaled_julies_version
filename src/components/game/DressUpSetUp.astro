@@ -1,26 +1,16 @@
 ---
-const {category} = Astro.props
-import MainLayout from "../../layouts/MainLayout.astro";
-import DressUpImg from "./DressUpImg.astro";
-
-const data = await fetch("https://ujeckodeljhzamhwlhsj.supabase.co/rest/v1/products",
-{
-    method: "GET",
-    headers: {
-        apikey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVqZWNrb2RlbGpoemFtaHdsaHNqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTU1MDI3ODIsImV4cCI6MjAzMTA3ODc4Mn0.qKKBr9i_Jy2NzTfbu_jinScWs6PmGaBMoeK-1WHbmcU"
-    }
-  }).then((res) => res.json());
+  const { data, category } = Astro.props
+  import DressUpImg from "./DressUpImg.astro";
 ---
 
-     <section>
-        <div class="cloth_grid">
-     {
-            data.map((item) => {
-                if(item.category === category)
-             return <DressUpImg data={item} />;
-            
-            })
-        }
+    <section>
+        <div class="cloth_grid box">
+            {
+                data.map((item) => {
+                    if(item.category === category)
+                    return <DressUpImg item={item} />;
+                })
+            }
         </div>
     </section> 
 

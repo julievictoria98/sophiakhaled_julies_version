@@ -1,17 +1,16 @@
 ---
-  const { data } = Astro.props;
+  const { item } = Astro.props;
 
  
 ---
 
 
-    <article class="container">
+    <article class=`container item_${item.category}` id={item.id}>
         <div class="card" draggable="true">
-            <a href={`/shop/${data.slug}`}>
-                <h2 class="hide">{data.name}</h2>
-                <img src={data.image} alt={data.name}>
-            </a>
-            
+            <div>
+                <h2 class="hide">{item.name}</h2>
+                <img src={item.image} alt={item.name}>
+            </div>
         </div>
     </article>  
 
