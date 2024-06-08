@@ -2,40 +2,22 @@
   const { data, category } = Astro.props
   import DressUpImg from "./DressUpImg.astro";
 ---
-
     <section>
         <div class="cloth_grid box">
             {
                 data.map((item) => {
-                    if(item.category === category)
-                    return <DressUpImg item={item} />;
+                    if (item.category === category) {
+                        return <DressUpImg item={item} />;
+                    } 
+                    
                 })
             }
         </div>
     </section> 
-
-
-
- 
-  <!--   <div class="cloth_grid">
-        {
-            //For hver ITEM indeni array'et "items", så returnerer vi et Card med et enkelt ITEM som prop.
-            data.map((item) => {
-            if (product.category === category) {
-                return  <DressUpImg data={item} />;
-            }
-            })
-        }
-         {
-            <div id={productsInCategory[0].id}>
-                <img src={productsInCategory[0].image} />
-            </div>
-        } 
-    </div>
-    -->
-
-
 <style>
+     .small_illustration{
+        width: 100px;
+    }
     .cloth_grid{
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;

@@ -1,0 +1,24 @@
+---
+
+import { Image} from "astro:assets";
+const {src, alt} = Astro.props;
+
+
+
+---
+
+<div class="card" draggable="true">
+    <Image src={src} alt={alt}/>
+</div>
+<style>
+
+    #sticker_container{
+        display: none;
+        grid-template-columns: 1fr 1fr; 
+    }
+
+    .sticker{
+        z-index: 1;
+    }
+    
+</style>

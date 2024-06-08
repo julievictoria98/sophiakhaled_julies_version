@@ -1,6 +1,16 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro"
 import DressUpSetUp from "../components/game/DressUpSetUp.astro";
+import GameFilterOption from "../components/game/GameFilterOption.astro";
+import ScribbleButton from "../components/Basics/buttons/ScribbleButton.astro";
+import Stickers from "../components/game/Stickers.astro";
+import BatWings from "../img/game/bat_wings.png"
+import AngleWings from "../img/game/angel_wings.png"
+import Crown from "../img/game/crown.png"
+import DevilTail from "../img/game/devil_tail.png"
+import DevilHorn from "../img/game/devil_horns.png"
+import CloseIcon from "../../src/img/game/close_icon.png"
+
 
 
 
@@ -12,49 +22,123 @@ const data = await fetch("https://ujeckodeljhzamhwlhsj.supabase.co/rest/v1/produ
     }
   }).then((res) => res.json());
 
+  const stickerData = [
+    {
+        category: "sticker",
+        image: BatWings.src,
+        name: "sticker",
+        id: "sticker_1"
+    },
+        {
+        category: "sticker",
+        image: AngleWings.src,
+        name: "sticker",
+        id: "sticker_2"
+    },
+        {
+        category: "sticker",
+        image: Crown.src,
+        name: "sticker",
+        id: "sticker_3",
+        class:"small_illustration"
+    },
+        {
+        category: "sticker",
+        image: DevilTail.src,
+        name: "sticker",
+        id: "sticker_4"
+    },
+        {
+        category: "sticker",
+        image: DevilHorn.src,
+        name: "sticker",
+        id: "sticker_5",
+        class:"small_illustration"
+    }
+  ]
+
 ---
  
 <MainLayout>
     <section>
         <div class="flex_column">
             <div class="flex_row">
-                <button class="button">check</button>
-                <button id="button">Get outfit</button>
-                <button id="tops_btn">Tops</button>
-                <button id="bottoms_btn">Bottoms</button>
-                <button id="dresses_btn">Dresses</button>
-                <button id="accessories_btn">Accessories</button>
+                <div id="get_the_look_btn">
+                <ScribbleButton label = "Get outfit"/>
+                </div>
+                <div id="tops_btn">
+                    <GameFilterOption option="tops"/>
+                </div>
+                <div id="bottoms_btn">
+                    <GameFilterOption option="bottoms"/>
+                </div>
+                <div id="dresses_btn">
+                    <GameFilterOption option="Dresses"/>
+                </div>
+                 <div id="accessories_btn">
+                    <GameFilterOption option="Accessories"/>
+                </div>
+                <div id="stickers_btn">
+                    <GameFilterOption option="Stickers"/>
+                </div>
             </div>
         </div>
         <article class="container">
             <div id="box1">
-                <img id="dress_up_doll" src="../../src/img/dress_up_doll.png" alt="">
+                <img id="dress_up_doll" src="../../src/img/game/dress_up_doll.png" alt="">
             </div>
             <div>
                 <DressUpSetUp data={data} category="tops"/>
                 <DressUpSetUp data={data} category="bottoms"/>
                 <DressUpSetUp data={data} category="dresses"/>
                 <DressUpSetUp data={data} category="accessories"/>
-              
+                <DressUpSetUp data={stickerData} category="sticker" />
             </div>
+            <div class="navigation_container">
+                <img id="close_icon" src="../../public/illustrations/close_icon.svg" alt="close">
+                <h1>get the look</h1>
+                <div class="navigation_looks">
+                </div>
+            </div>
+
         </article>
-    </section> 
-           <!--  <DressUpSetUp category="tops" />
-            <DressUpSetUp category="bottoms" />
-            <DressUpSetUp category="dresses" /> -->
-        </div>
     </section> 
 </MainLayout>
 
 <style>
-      #card{
+    /*   #card{
         width: 110px;
         height:110px;
         background: white;
         border-radius: black;
         position: absolute;
     }
+ */
+    .navigation_container{
+        display: none;
+        flex-direction: column;
+        flex-wrap: wrap;
+        position: absolute;
+        background-color: blanchedalmond;
+        padding:30px;
+    }
 
+    #close_icon{
+        width:60px
+    }
+
+   .navigation_looks{
+    display: flex;
+
+}
+.item_nav img {
+    width: 40px; /* Adjust this value as needed */
+}
+
+
+    .small_illustration{
+        width: 100px;
+    }
     img{
         width: 200px;
     }
@@ -81,10 +165,20 @@ const data = await fetch("https://ujeckodeljhzamhwlhsj.supabase.co/rest/v1/produ
         justify-content: space-between;
         padding-left: 20px;
         padding-right: 20px;
+        align-items: center;
+        
+       
      }
      .keep{
         display: block;
      }
+
+     
+    #sticker_container{
+        display: none;
+        grid-template-columns: 1fr 1fr; 
+    }
+
 
   
 </style>
@@ -99,67 +193,147 @@ const data = await fetch("https://ujeckodeljhzamhwlhsj.supabase.co/rest/v1/produ
                 //forestil dig at elementet har fået class = "keep", hvis elementet overlapper med box1
                 if(element.className.includes(category)) {
                     element.style.display = "block";
+                    
                 } else if (element.className.includes("keep")) {
                     element.style.display = "block";
-                } else {
+                }
+                 else {
                     element.style.display = "none";
+                    // document.getElementById('sticker_container').style.display = 'grid';
                 }
             });
         }
     }
+     
     // Adding event listeners for button clicks
     document.getElementById('tops_btn').addEventListener('click', () => showCategory('tops'));
     document.getElementById('bottoms_btn').addEventListener('click', () => showCategory('bottoms'));
     document.getElementById('dresses_btn').addEventListener('click', () => showCategory('dresses'));
     document.getElementById('accessories_btn').addEventListener('click', () => showCategory('accessories'));
+    document.getElementById('stickers_btn').addEventListener('click', () => showCategory('sticker'));
+    document.getElementById('close_icon').addEventListener('click', closePopup);
+
+    function closePopup(){
+        document.querySelector('.navigation_container').style.display = "none";
+
+         const productElement = document.querySelector('.navigation_looks');
+         productElement.innerHTML = ''
+
+
+    }
+
    
- document.querySelectorAll('.container').forEach(container => {
-            container.addEventListener('click', positionAbsolute);
-        });
-
-        function positionAbsolute (){
-            document.querySelector(".card").parentNode.classList.add("position_absolute");
-            checkOverlap();
-
-
-            
-        }
+    document.querySelectorAll('.container').forEach(container => {
+        container.addEventListener('click', checkOverlap);
+    });
+    
 
     //overlapping//
- function isBoxOverlapping(box, card) {
+    function isBoxOverlapping(box, card) {
         const rect1 = box.getBoundingClientRect();
         const rect2 = card.getBoundingClientRect();
 
-        return !(rect1.right < rect2.left || 
-                 rect1.left > rect2.right || 
-                 rect1.bottom < rect2.top || 
-                 rect1.top > rect2.bottom);
+        return !(
+            rect1.right < rect2.left || 
+            rect1.left > rect2.right || 
+            rect1.bottom < rect2.top || 
+            rect1.top > rect2.bottom
+        );
     }
 
-function checkOverlap() {
+    function checkOverlap() {
+        const box1 = document.getElementById('box1');
+        const products = document.querySelectorAll('.card');
+
+        // Iterate over all product cards
+        products.forEach(product => {
+            // Check if box1 and current card are overlapping
+            if (isBoxOverlapping(box1, product)) {
+                // Access the product ID and image using the id and src attributes
+                const productId = product.getAttribute('id');
+                console.log('Box and card are overlapping. Product ID:', productId);
+                product.parentNode.classList.add("keep");
+
+            } else {
+                product.parentNode.classList.remove("keep");
+            }
+        });
+    }  
+    
+    //get the look
+
+    
+    function getTheLook() {
     const box1 = document.getElementById('box1');
     const products = document.querySelectorAll('.card');
+    const navigationContainer = document.querySelector('.navigation_looks');
+
+    // Clear previous content
 
     // Iterate over all product cards
     products.forEach(product => {
         // Check if box1 and current card are overlapping
         if (isBoxOverlapping(box1, product)) {
-            // Access the product ID and image using the id and src attributes
+            // Access the product ID
             const productId = product.getAttribute('id');
+            const productImgSrc = product.querySelector('img').src;
+            const productImgAlt = product.querySelector('img').alt;
+
+
             console.log('Box and card are overlapping. Product ID:', productId);
-            product.parentNode.classList.add("keep");
+            document.querySelector('.navigation_container').style.display = "flex";
 
+               // Create a new div with the class item_nav
+            const productElement = document.createElement('div');
+            productElement.classList.add('item_nav');
+            productElement.style.width = "100px";
+
+            // Set the innerHTML of the productElement
+            productElement.innerHTML = `
+                <img src="${productImgSrc}" alt="${productImgAlt}">
+                <p>${productImgAlt}</p>
+            `;
+
+            // Append the productElement to the navigationContainer
+            navigationContainer.appendChild(productElement);
         }
-      else{
-            product.parentNode.classList.remove("keep", "position_absolute");
-
-      }
     });
 }
 
+    let offsetX = 0, offsetY = 0;
+    let isMoving = false;
+    document.querySelectorAll('.card').forEach(card => {
+        card.addEventListener("click", toggleMove)
+        
+
+        function toggleMove(e) {
+            card.style.position = "absolute";
+            if (!isMoving) {
+                // Start moving the card
+                offsetX = e.clientX - card.offsetLeft;
+                offsetY = e.clientY - card.offsetTop;
+                document.addEventListener("mousemove", mouseMove);
+                isMoving = true;
+            } else {
+                // Stop moving the card
+                document.removeEventListener("mousemove", mouseMove);
+                isMoving = false;
+            }
+        }
+
+        function mouseMove(e){
+            const newLeft = e.clientX - offsetX;
+            const newTop = e.clientY - offsetY;
+            card.style.left = newLeft + 'px';
+            card.style.top = newTop + 'px';
+        }
+    });
+
+    
+
 
     // Add event listener for button click to trigger overlap check
-    document.querySelector('.button').addEventListener('click', checkOverlap);
+    document.querySelector('#get_the_look_btn').addEventListener('click', getTheLook);
 
 </script>
 

@@ -1,92 +1,26 @@
 ---
   const { item } = Astro.props;
-
- 
 ---
-
-
     <article class=`container item_${item.category}`>
         <div class="card" draggable="true" id={item.id}>
-            <div>
-                <h2 class="hide">{item.name}</h2>
+            <div class={item.class} >
                 <img src={item.image} alt={item.name}>
             </div>
         </div>
-    </article>  
-
-    
-<!--    <div class="container">
-        <div class="cloth_container">
-            {products.map(product => {
-            if (product.category === "tops") {
-                return (
-                    <div class="card"  draggable="true" key={product.id}>
-                            <img src={product.image} alt={product.imageAlt || alt} />
-                    </div>
-        
-                );
-            }
-            })}
-        </div>
-    </div>  -->
-
+    </article> 
 <style>
-    
-   
+    .small_illustration {
+        width: 100px;
+    }
     .container{
-        position: relative;
-
+        margin-left: 20px;
     }
-
-    .hide{
-        display: none
-    }
-
     
     .card{
         width: 200px;
         height:200px;
         border-radius: black;
-         /* position: absolute;  */
     }
-        .position_absolute{
-        position: absolute;
-      
-     }
 
    
 </style>
-
- <script>
-    let offsetX = 0, offsetY = 0;
-     let isMoving = false;
-    document.querySelectorAll('.card').forEach(card => {
-   
-
-    card.addEventListener("click", toggleMove)
-
-  function toggleMove(e) {
-     card.style.position = "absolute";
-        if (!isMoving) {
-            // Start moving the card
-            offsetX = e.clientX - card.offsetLeft;
-            offsetY = e.clientY - card.offsetTop;
-            document.addEventListener("mousemove", mouseMove);
-            isMoving = true;
-        } else {
-            // Stop moving the card
-            document.removeEventListener("mousemove", mouseMove);
-            isMoving = false;
-        }
-    }
-
-    function mouseMove(e){
-        const newLeft = e.clientX - offsetX;
-        const newTop = e.clientY - offsetY;
-        card.style.left = newLeft + 'px';
-        card.style.top = newTop + 'px';
-    }
-      });
-
- 
-</script> 
