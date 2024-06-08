@@ -82,13 +82,16 @@ const data = await fetch("https://ujeckodeljhzamhwlhsj.supabase.co/rest/v1/produ
         padding-left: 20px;
         padding-right: 20px;
      }
-   
+     .keep{
+        display: block;
+     }
+
+  
 </style>
 
 <script>
     function showCategory(category) {
         checkOverlap();
-
         const boxes = document.querySelectorAll(".box");
         for (const box of boxes) {
             const childElements = box.querySelectorAll(".container");
@@ -103,13 +106,24 @@ const data = await fetch("https://ujeckodeljhzamhwlhsj.supabase.co/rest/v1/produ
                 }
             });
         }
-
     }
     // Adding event listeners for button clicks
     document.getElementById('tops_btn').addEventListener('click', () => showCategory('tops'));
     document.getElementById('bottoms_btn').addEventListener('click', () => showCategory('bottoms'));
     document.getElementById('dresses_btn').addEventListener('click', () => showCategory('dresses'));
     document.getElementById('accessories_btn').addEventListener('click', () => showCategory('accessories'));
+   
+ document.querySelectorAll('.container').forEach(container => {
+            container.addEventListener('click', positionAbsolute);
+        });
+
+        function positionAbsolute (){
+            document.querySelector(".card").parentNode.classList.add("position_absolute");
+            checkOverlap();
+
+
+            
+        }
 
     //overlapping//
  function isBoxOverlapping(box, card) {
@@ -136,6 +150,10 @@ function checkOverlap() {
             product.parentNode.classList.add("keep");
 
         }
+      else{
+            product.parentNode.classList.remove("keep", "position_absolute");
+
+      }
     });
 }
 
