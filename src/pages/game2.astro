@@ -88,11 +88,11 @@ const data = await fetch("https://ujeckodeljhzamhwlhsj.supabase.co/rest/v1/produ
                 <img id="dress_up_doll" src="../../src/img/game/dress_up_doll.png" alt="">
             </div>
             <div>
-                <DressUpSetUp data={data} category="tops"/>
-                <DressUpSetUp data={data} category="bottoms"/>
-                <DressUpSetUp data={data} category="dresses"/>
-                <DressUpSetUp data={data} category="accessories"/>
-                <DressUpSetUp data={stickerData} category="sticker" />
+                <DressUpSetUp data={stickerData} category="sticker" zindex="stickers"/>
+                <DressUpSetUp data={data} category="tops" />
+                <DressUpSetUp data={data} category="bottoms" />
+                <DressUpSetUp data={data} category="dresses" />
+                <DressUpSetUp data={data} category="accessories">
             </div>
             <div class="navigation_container">
                 <img id="close_icon" src="../../public/illustrations/close_icon.svg" alt="close">
@@ -106,21 +106,15 @@ const data = await fetch("https://ujeckodeljhzamhwlhsj.supabase.co/rest/v1/produ
 </MainLayout>
 
 <style>
-    /*   #card{
-        width: 110px;
-        height:110px;
-        background: white;
-        border-radius: black;
-        position: absolute;
-    }
- */
+
+  
     .navigation_container{
         display: none;
         flex-direction: column;
         flex-wrap: wrap;
         position: absolute;
         background-color: var(--box-color);
-         border: 2.5px solid black;
+        border: 0.2rem solid black;
         padding-left:2rem;
         padding-right:2rem;
         padding-bottom:5rem;
@@ -131,7 +125,7 @@ const data = await fetch("https://ujeckodeljhzamhwlhsj.supabase.co/rest/v1/produ
     
 
     #close_icon{
-        width:60px;
+        width:3.5rem;
         margin-left: auto;
 
     }
@@ -147,62 +141,38 @@ const data = await fetch("https://ujeckodeljhzamhwlhsj.supabase.co/rest/v1/produ
     justify-content: center;
     align-items: baseline;
     gap:5rem
-
-
-}
-.item_nav {
-    width: 40px; /* Adjust this value as needed */
 }
 
-
-    .small_illustration{
-        width: 100px;
-    }
-    img{
-        width: 200px;
-    }
-
-     .cloth_grid{
+    .container{
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        row-gap:50px
+        gap:2rem;
+        grid-template-columns: 1fr 4fr;
     }
 
-     .container{
-        margin-top: 50px;
-      
-       display: grid;
-       row-gap:100px;
-       grid-template-columns: 1fr 4fr;
-     }
-
-     #dress_up_doll{
-        width: 400px;
-     }
-     .flex_row{
+    #dress_up_doll{
+        width: 26rem;
+    }
+     
+    .flex_row{
         display: flex;
         justify-content: space-between;
-        padding-left: 20px;
-        padding-right: 20px;
         align-items: center;
-        
-       
-     }
-     .keep{
+        padding-left: 4rem; 
+    }
+    .keep{
         display: block;
-     }
+    }
 
      
     #sticker_container{
         display: none;
         grid-template-columns: 1fr 1fr; 
     }
-
-
   
 </style>
 
 <script>
+
     function showCategory(category) {
         checkOverlap();
         const boxes = document.querySelectorAll(".box");
@@ -237,11 +207,9 @@ const data = await fetch("https://ujeckodeljhzamhwlhsj.supabase.co/rest/v1/produ
 
          const productElement = document.querySelector('.navigation_looks');
          productElement.innerHTML = ''
-
-
     }
 
-   
+
     document.querySelectorAll('.container').forEach(container => {
         container.addEventListener('click', checkOverlap);
     });
@@ -280,14 +248,11 @@ const data = await fetch("https://ujeckodeljhzamhwlhsj.supabase.co/rest/v1/produ
     }  
     
     //get the look
-
-    
     function getTheLook() {
     const box1 = document.getElementById('box1');
     const products = document.querySelectorAll('.card');
     const navigationContainer = document.querySelector('.navigation_looks');
 
-    // Clear previous content
 
     // Iterate over all product cards
     products.forEach(product => {
@@ -319,7 +284,6 @@ const data = await fetch("https://ujeckodeljhzamhwlhsj.supabase.co/rest/v1/produ
 
             navigationContainer.appendChild(productElement);
             }
-
            
         }
         }
@@ -355,10 +319,6 @@ const data = await fetch("https://ujeckodeljhzamhwlhsj.supabase.co/rest/v1/produ
         }
     });
 
-    
-
-
-    // Add event listener for button click to trigger overlap check
     document.querySelector('#get_the_look_btn').addEventListener('click', getTheLook);
 
 </script>

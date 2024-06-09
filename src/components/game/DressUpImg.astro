@@ -1,8 +1,8 @@
 ---
-  const { item } = Astro.props;
+  const { item , zindex } = Astro.props;
 ---
     <article class=`container item_${item.category}`>
-        <div class="card" draggable="true" id={item.id} slug={item.slug}>
+        <div class=`card ${zindex}` draggable="true" id={item.id} slug={item.slug}>
             <div class={item.class} >
                 <img src={item.image} alt={item.name}>
             </div>
@@ -10,17 +10,11 @@
     </article> 
 <style>
     .small_illustration {
-        width: 100px;
+        width: 4rem;
     }
-    .container{
-        margin-left: 20px;
-    }
-    
-    .card{
-        width: 200px;
-        height:200px;
-        border-radius: black;
-    }
-
    
+    .card{
+        width: 13rem;
+        height:13rem;
+    }
 </style>
