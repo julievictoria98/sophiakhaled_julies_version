@@ -2,7 +2,7 @@
   const { item } = Astro.props;
 ---
     <article class=`container item_${item.category}`>
-        <div class="card" draggable="true" id={item.id}>
+        <div class="card" draggable="true" id={item.id} slug={item.slug}>
             <div class={item.class} >
                 <img src={item.image} alt={item.name}>
             </div>

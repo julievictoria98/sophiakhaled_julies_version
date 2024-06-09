@@ -96,7 +96,7 @@ const data = await fetch("https://ujeckodeljhzamhwlhsj.supabase.co/rest/v1/produ
             </div>
             <div class="navigation_container">
                 <img id="close_icon" src="../../public/illustrations/close_icon.svg" alt="close">
-                <h1>get the look</h1>
+                <h1 id="get_the_look" class="heading_2">GET THE LOOK</h1>
                 <div class="navigation_looks">
                 </div>
             </div>
@@ -119,19 +119,38 @@ const data = await fetch("https://ujeckodeljhzamhwlhsj.supabase.co/rest/v1/produ
         flex-direction: column;
         flex-wrap: wrap;
         position: absolute;
-        background-color: blanchedalmond;
-        padding:30px;
+        background-color: var(--box-color);
+         border: 2.5px solid black;
+        padding-left:2rem;
+        padding-right:2rem;
+        padding-bottom:5rem;
+        padding-top: 2rem;
+        min-width: 50rem;
+        justify-self: center;
     }
+    
 
     #close_icon{
-        width:60px
+        width:60px;
+        margin-left: auto;
+
+    }
+
+    #get_the_look{
+        align-self: center;
+        margin-bottom: 2rem;
+        justify-self: center
     }
 
    .navigation_looks{
     display: flex;
+    justify-content: center;
+    align-items: baseline;
+    gap:5rem
+
 
 }
-.item_nav img {
+.item_nav {
     width: 40px; /* Adjust this value as needed */
 }
 
@@ -276,6 +295,8 @@ const data = await fetch("https://ujeckodeljhzamhwlhsj.supabase.co/rest/v1/produ
         if (isBoxOverlapping(box1, product)) {
             // Access the product ID
             const productId = product.getAttribute('id');
+            const productSlug = product.getAttribute('slug');
+
             const productImgSrc = product.querySelector('img').src;
             const productImgAlt = product.querySelector('img').alt;
 
@@ -283,19 +304,23 @@ const data = await fetch("https://ujeckodeljhzamhwlhsj.supabase.co/rest/v1/produ
             console.log('Box and card are overlapping. Product ID:', productId);
             document.querySelector('.navigation_container').style.display = "flex";
 
+            if (productId !== "sticker"){
                // Create a new div with the class item_nav
             const productElement = document.createElement('div');
             productElement.classList.add('item_nav');
-            productElement.style.width = "100px";
+            productElement.style.width = "15rem";
 
             // Set the innerHTML of the productElement
             productElement.innerHTML = `
-                <img src="${productImgSrc}" alt="${productImgAlt}">
+                 <a href="shop/${productSlug}" target="_blank">
+                    <img src="${productImgSrc}" alt="${productImgAlt}">
+                </a>
                 <p>${productImgAlt}</p>
             `;
 
             // Append the productElement to the navigationContainer
             navigationContainer.appendChild(productElement);
+        }
         }
     });
 }
