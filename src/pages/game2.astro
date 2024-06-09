@@ -304,13 +304,12 @@ const data = await fetch("https://ujeckodeljhzamhwlhsj.supabase.co/rest/v1/produ
             console.log('Box and card are overlapping. Product ID:', productId);
             document.querySelector('.navigation_container').style.display = "flex";
 
-            if (productId !== "sticker"){
-               // Create a new div with the class item_nav
-            const productElement = document.createElement('div');
+          {
+            if(productImgAlt !== "sticker"){
+                 const productElement = document.createElement('div');
             productElement.classList.add('item_nav');
             productElement.style.width = "15rem";
 
-            // Set the innerHTML of the productElement
             productElement.innerHTML = `
                  <a href="shop/${productSlug}" target="_blank">
                     <img src="${productImgSrc}" alt="${productImgAlt}">
@@ -318,8 +317,10 @@ const data = await fetch("https://ujeckodeljhzamhwlhsj.supabase.co/rest/v1/produ
                 <p>${productImgAlt}</p>
             `;
 
-            // Append the productElement to the navigationContainer
             navigationContainer.appendChild(productElement);
+            }
+
+           
         }
         }
     });
