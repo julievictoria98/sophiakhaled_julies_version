@@ -10,11 +10,12 @@ import Crown from "../img/game/crown.png"
 import DevilTail from "../img/game/devil_tail.png"
 import DevilHorn from "../img/game/devil_horns.png"
 import CloseIcon from "../../src/img/game/close_icon.png"
+import Halo from "../img/game/halo.png"
 
 
 
 
-const data = await fetch("https://ujeckodeljhzamhwlhsj.supabase.co/rest/v1/products",
+const productList = await fetch("https://ujeckodeljhzamhwlhsj.supabase.co/rest/v1/products",
 {
     method: "GET",
     headers: {
@@ -22,18 +23,22 @@ const data = await fetch("https://ujeckodeljhzamhwlhsj.supabase.co/rest/v1/produ
     }
   }).then((res) => res.json());
 
-  const stickerData = [
+  const stickerList = [
     {
         category: "sticker",
         image: BatWings.src,
         name: "sticker",
-        id: "sticker_1"
+        id: "sticker_1",
+        class:"big_illustration"
+
+
     },
         {
         category: "sticker",
         image: AngleWings.src,
         name: "sticker",
-        id: "sticker_2"
+        id: "sticker_2",
+        class:"big_illustration"
     },
         {
         category: "sticker",
@@ -46,7 +51,9 @@ const data = await fetch("https://ujeckodeljhzamhwlhsj.supabase.co/rest/v1/produ
         category: "sticker",
         image: DevilTail.src,
         name: "sticker",
-        id: "sticker_4"
+        id: "sticker_4",
+        class:"mid_illustration"
+
     },
         {
         category: "sticker",
@@ -54,58 +61,71 @@ const data = await fetch("https://ujeckodeljhzamhwlhsj.supabase.co/rest/v1/produ
         name: "sticker",
         id: "sticker_5",
         class:"small_illustration"
+    },
+        {
+        category: "sticker",
+        image: Halo.src,
+        name: "sticker",
+        id: "sticker_6",
+        class:"small_illustration"
     }
   ]
 
 ---
  
 <MainLayout>
-    <section>
-        <div class="flex_column">
-            <div class="flex_row">
-                <div id="get_the_look_btn">
-                <ScribbleButton label = "Get outfit"/>
-                </div>
-                <div id="tops_btn">
-                    <GameFilterOption option="tops"/>
-                </div>
-                <div id="bottoms_btn">
-                    <GameFilterOption option="bottoms"/>
-                </div>
-                <div id="dresses_btn">
-                    <GameFilterOption option="Dresses"/>
-                </div>
-                 <div id="accessories_btn">
-                    <GameFilterOption option="Accessories"/>
-                </div>
-                <div id="stickers_btn">
-                    <GameFilterOption option="Stickers"/>
+    <section class="flex_column">
+        <div>
+                <div class="flex_row">
+                    <div id="get_the_look_btn">
+                    <ScribbleButton label = "Get outfit"/>
+                    </div>
+                    <div id="tops_btn">
+                        <GameFilterOption option="tops"/>
+                    </div>
+                    <div id="bottoms_btn">
+                        <GameFilterOption option="bottoms"/>
+                    </div>
+                    <div id="dresses_btn">
+                        <GameFilterOption option="Dresses"/>
+                    </div>
+                    <div id="accessories_btn">
+                        <GameFilterOption option="Accessories"/>
+                    </div>
+                    <div id="stickers_btn">
+                        <GameFilterOption option="Stickers"/>
+                    </div>
                 </div>
             </div>
+            <article class="container">
+                <div id="box1">
+                    <img id="dress_up_doll" src="../../src/img/game/dress_up_doll.png" alt="">
+                </div>
+                <div>
+                    <DressUpSetUp list={stickerList} category="sticker"/>
+                    <DressUpSetUp list={productList} category="tops" />
+                    <DressUpSetUp list={productList} category="bottoms" />
+                    <DressUpSetUp list={productList} category="dresses" />
+                    <DressUpSetUp list={productList} category="accessories">
+                </div>
+                <div class="navigation_container">
+                    <img id="close_icon" src="../../public/illustrations/close_icon.svg" alt="close">
+                    <h1 id="get_the_look" class="heading_2">GET THE LOOK</h1>
+                    <div class="navigation_looks">
+                    </div>
+                </div>
+            </article>
         </div>
-        <article class="container">
-            <div id="box1">
-                <img id="dress_up_doll" src="../../src/img/game/dress_up_doll.png" alt="">
-            </div>
-            <div>
-                <DressUpSetUp data={stickerData} category="sticker" zindex="stickers"/>
-                <DressUpSetUp data={data} category="tops" />
-                <DressUpSetUp data={data} category="bottoms" />
-                <DressUpSetUp data={data} category="dresses" />
-                <DressUpSetUp data={data} category="accessories">
-            </div>
-            <div class="navigation_container">
-                <img id="close_icon" src="../../public/illustrations/close_icon.svg" alt="close">
-                <h1 id="get_the_look" class="heading_2">GET THE LOOK</h1>
-                <div class="navigation_looks">
-                </div>
-            </div>
-
-        </article>
     </section> 
 </MainLayout>
 
 <style>
+
+    .flex_column{
+        display: flex;
+        flex-direction: column;
+        margin-top:2rem;
+}
 
   
     .navigation_container{
@@ -114,7 +134,7 @@ const data = await fetch("https://ujeckodeljhzamhwlhsj.supabase.co/rest/v1/produ
         flex-wrap: wrap;
         position: absolute;
         background-color: var(--box-color);
-        border: 0.2rem solid black;
+        border: 0.1rem solid black;
         padding-left:2rem;
         padding-right:2rem;
         padding-bottom:5rem;
@@ -145,12 +165,13 @@ const data = await fetch("https://ujeckodeljhzamhwlhsj.supabase.co/rest/v1/produ
 
     .container{
         display: grid;
-        gap:2rem;
+        gap:4rem;
         grid-template-columns: 1fr 4fr;
+        margin-top: 2rem;
     }
 
     #dress_up_doll{
-        width: 26rem;
+        width: 20rem;
     }
      
     .flex_row{
@@ -173,6 +194,7 @@ const data = await fetch("https://ujeckodeljhzamhwlhsj.supabase.co/rest/v1/produ
 
 <script>
 
+document.addEventListener("DOMContentLoaded", () => {showCategory('tops');});
     function showCategory(category) {
         checkOverlap();
         const boxes = document.querySelectorAll(".box");

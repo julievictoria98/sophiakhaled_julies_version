@@ -1,11 +1,11 @@
 ---
-  const { data, category } = Astro.props
+  const { list, category } = Astro.props
   import DressUpImg from "./DressUpImg.astro";
 ---
     <section>
         <div class="cloth_grid box">
             {
-                data.map((item) => {
+                list.map((item) => {
                     if (item.category === category) {
                         return <DressUpImg item={item} />;
                     } 
@@ -20,6 +20,8 @@
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
         row-gap:4rem;
+        column-gap:4rem;
+        
     }
         
 </style>  

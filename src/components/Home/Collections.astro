@@ -38,7 +38,8 @@ const collections = [
 ]
 
 ---
-
+<!-- Since the collections array contains two objects, the map function will iterate over each object 
+    and create two CollectionCard components. Each CollectionCard will receive one of the objects as its data prop. -->
 <section class="break_main">
         {collections.map((col) =>
         <CollectionCard data={col} />

@@ -3,7 +3,7 @@
 import Polaroid from "../Basics/img/Polaroid.astro"
 import TapedImage from "../Basics/img/TapedImage.astro"
 import ImgOutline from "./Hero/ImgOutline.astro"
-
+// her konstaterer vi en variabel ved navn data som vi burger i img_contaienr og header
 const {data} = Astro.props
 ---
 
@@ -25,7 +25,12 @@ const {data} = Astro.props
     </article>   
 </section>
 
+
+<!-- definer varibalen billedet, så hun kan referer den nede i section
+linear-gradient er for at billedet får en mere kold farve overflow og background-repeat kan jeg ikke se logik i
+-->
 <style define:vars={{ image: `url("/backgrounds/checkeredbg.svg")` }}>
+
     section {
         display: grid;
         grid-template-columns:
@@ -91,7 +96,7 @@ const {data} = Astro.props
     .hero_img:nth-child(2) {
         transition-delay: 4s;
     }
-
+    /* her bliver de 2 første billeder gemt, så det kun er det ene i mobile view */
     .hero_img:nth-child(1), .hero_img:nth-child(2) {
         display: none;
     }
@@ -114,11 +119,13 @@ const {data} = Astro.props
         section {
             background-size: contain;
         }
+    /* her bliver de 2 første billeder vist, da skærmstørrelse bliver større det kun er det ene i mobile view */
 
         .hero_img:nth-child(1), .hero_img:nth-child(2) {
         display: block;
     }
-
+    /*  If the second image remains in the normal document flow while the first and third images are positioned absolutely, 
+    it helps ensure there is still space allocated between the hero images and other content on the page.  */
     .hero_img:nth-child(2) {
         width: 80%;
     }

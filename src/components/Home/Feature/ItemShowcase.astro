@@ -10,14 +10,18 @@ const products = await fetch("https://ujeckodeljhzamhwlhsj.supabase.co/rest/v1/p
 
 const { data } = Astro.props;
 let orderCount = 0;
+// En orderCount-variabel initialiseres for at holde styr på den rækkefølge, som varer gengives i.
+
 
 ---
+<!-- data.items svarer til feature.items. Vi sætter data lig med feature ( et array). så vi tjekker om item.id er lige med feature.item i index -->
 <article>
     {products.map(item =>{
         if (item.id == data.items[0] || item.id == data.items[1] || item.id == data.items[2] ) {
             let thisItem = <div class="item"><Item data={item} order={orderCount} variant={data.class} /></div>
             orderCount++;
             return thisItem;
+            // The created component (thisItem) is returned from the map function.
         }      
     })}
     <div class="box"></div>

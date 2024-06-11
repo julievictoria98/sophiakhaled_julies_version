@@ -6,14 +6,16 @@ import ScribbleButton from "../Basics/buttons/ScribbleButton.astro";
 const {ColNo, SetNo, RecNo, RanNo} = Astro.props
 
 const URLCol = `https://ujeckodeljhzamhwlhsj.supabase.co/rest/v1/products?collection=eq.${ColNo}&select=*`;
+// set=eq.${SetNo}: This is a query parameter that tells the API to filter products where the set column equals (eq) the value of the variable SetNo
 const URLSet = `https://ujeckodeljhzamhwlhsj.supabase.co/rest/v1/products?set=eq.${SetNo}&select=*`;
 const URLRec = `https://ujeckodeljhzamhwlhsj.supabase.co/rest/v1/products?recommendation=eq.${RecNo}&select=*`;
 
 let URL;
 let Heading;
 let Subheading;
-
+// hvis der findes en værdi for set så skal url være lig med item.set
  if (SetNo) {
+    // sætter URL = URLSet, som vælger
     URL = URLSet;
     Heading = "Get the whole set"
 } else if (RecNo) {
@@ -25,7 +27,7 @@ let Subheading;
     Heading = "Shop Collection";
     Subheading = "Shop pieces from the collection"
 }
-
+// her fetcher den data der er udvlagt udfra URL, f.eks. set. SÅ man fetcher kun de items der matcher item.sets value
 const products = await fetch(URL,{
     method: "GET",
     headers: {

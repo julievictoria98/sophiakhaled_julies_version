@@ -21,11 +21,13 @@ const feature =
 ---
 
 <MainLayout>
+    <!-- her sætter vi vores astro prop data som vi definede i hero-component ligmed feature, altså det lokale array -->
 	<Hero data={feature} />
-	<Feature data={feature} />
+	<Feature data={feature} /> 
 	<Collections />
 </MainLayout>
 
+<!-- spørgs Christian -->
 <script>
     const observer = new IntersectionObserver(entries => {
             entries.forEach(entry => {
