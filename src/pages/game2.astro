@@ -3,7 +3,6 @@ import MainLayout from "../layouts/MainLayout.astro"
 import DressUpSetUp from "../components/game/DressUpSetUp.astro";
 import GameFilterOption from "../components/game/GameFilterOption.astro";
 import ScribbleButton from "../components/Basics/buttons/ScribbleButton.astro";
-import Stickers from "../components/game/Stickers.astro";
 import BatWings from "../img/game/bat_wings.png"
 import AngleWings from "../img/game/angel_wings.png"
 import Crown from "../img/game/crown.png"
@@ -11,7 +10,8 @@ import DevilTail from "../img/game/devil_tail.png"
 import DevilHorn from "../img/game/devil_horns.png"
 import CloseIcon from "../../src/img/game/close_icon.png"
 import Halo from "../img/game/halo.png"
-
+import DressUpDoll from "../img/game/dress_up_doll.png"
+import { Image } from "astro:assets";
 
 
 
@@ -99,7 +99,7 @@ const productList = await fetch("https://ujeckodeljhzamhwlhsj.supabase.co/rest/v
             </div>
             <article class="container">
                 <div id="box1">
-                    <img id="dress_up_doll" src="../../src/img/game/dress_up_doll.png" alt="">
+                    <Image id="dress_up_doll" src={DressUpDoll} alt="dress up doll"/>
                 </div>
                 <div>
                     <DressUpSetUp list={stickerList} category="sticker"/>
@@ -124,7 +124,7 @@ const productList = await fetch("https://ujeckodeljhzamhwlhsj.supabase.co/rest/v
     .flex_column{
         display: flex;
         flex-direction: column;
-        margin-top:2rem;
+        margin-top: var(--top_btm);
 }
 
   
@@ -165,9 +165,8 @@ const productList = await fetch("https://ujeckodeljhzamhwlhsj.supabase.co/rest/v
 
     .container{
         display: grid;
-        gap:4rem;
+        gap: var(--large);
         grid-template-columns: 1fr 4fr;
-        margin-top: 2rem;
     }
 
     #dress_up_doll{
