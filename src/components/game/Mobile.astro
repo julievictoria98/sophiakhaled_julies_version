@@ -9,7 +9,7 @@ import ScribbleButton from "../Basics/buttons/ScribbleButton.astro";
         <p>Hop on your trusty computer and relive the nostalgia</p>
     </div>
     <div class="go_to_shop">
-        <p class="btn_text">In the mean time check out out pieces</p>
+        <p class="btn_text">In the meantime, check out our pieces</p>
         <ScribbleButton label="Go to Shop" href="/shop" />
     </div>
 </article>
@@ -40,4 +40,10 @@ import ScribbleButton from "../Basics/buttons/ScribbleButton.astro";
         justify-items: center;
     }
 
+ @media (min-width: 1200px){
+    
+    .container{
+        display: none;
+    }
+ }
 </style>
