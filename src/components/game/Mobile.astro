@@ -1,0 +1,43 @@
+---
+import ScribbleButton from "../Basics/buttons/ScribbleButton.astro";
+---
+
+<article class="container">
+    <div class="box">
+        <h1 class="heading_2">Whoa there, Fashionista! </h1>
+        <p>Looks like you're trying to play on a device that's too small for this dress-up adventure. Remember the good ol' days of clunky keyboards and hefty monitors? Yeah, we need that kind of space !</p>
+        <p>Hop on your trusty computer and relive the nostalgia</p>
+    </div>
+    <div class="go_to_shop">
+        <p class="btn_text">In the mean time check out out pieces</p>
+        <ScribbleButton label="Go to Shop" href="/shop" />
+    </div>
+</article>
+
+<style>
+    .box{
+        background-color: var(--box-color);
+        padding: var(--top_btm) var(--side);
+    
+        
+    }
+    .btn_text{
+        font-size: 1rem;
+    }
+
+    .go_to_shop{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-items: center;
+
+    }
+    .container{
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        align-items: center;
+        justify-items: center;
+    }
+
+</style>

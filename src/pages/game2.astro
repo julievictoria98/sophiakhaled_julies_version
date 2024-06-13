@@ -8,10 +8,10 @@ import AngleWings from "../img/game/angel_wings.png"
 import Crown from "../img/game/crown.png"
 import DevilTail from "../img/game/devil_tail.png"
 import DevilHorn from "../img/game/devil_horns.png"
-import CloseIcon from "../../src/img/game/close_icon.png"
 import Halo from "../img/game/halo.png"
 import DressUpDoll from "../img/game/dress_up_doll.png"
 import { Image } from "astro:assets";
+import Mobile from "../components/game/Mobile.astro"
 
 
 
@@ -117,12 +117,15 @@ const productList = await fetch("https://ujeckodeljhzamhwlhsj.supabase.co/rest/v
             </article>
         </div>
     </section> 
+    <section class="mobile">
+        <Mobile/>
+    </section>
 </MainLayout>
 
 <style>
 
     .flex_column{
-        display: flex;
+        display: none;
         flex-direction: column;
         margin-top: var(--top_btm);
 }
@@ -163,6 +166,8 @@ const productList = await fetch("https://ujeckodeljhzamhwlhsj.supabase.co/rest/v
     gap:5rem
 }
 
+
+
     .container{
         display: grid;
         gap: var(--large);
@@ -188,6 +193,13 @@ const productList = await fetch("https://ujeckodeljhzamhwlhsj.supabase.co/rest/v
         display: none;
         grid-template-columns: 1fr 1fr; 
     }
+
+     @media (min-width: 1200px){
+
+         .flex_column{
+            display: flex;
+         }
+     }
   
 </style>
 
@@ -292,20 +304,20 @@ document.addEventListener("DOMContentLoaded", () => {showCategory('tops');});
 
           {
             if(productImgAlt !== "sticker"){
-                 const productElement = document.createElement('div');
-            productElement.classList.add('item_nav');
-            productElement.style.width = "15rem";
+                const productElement = document.createElement('div');
+                productElement.classList.add('item_nav');
+                productElement.style.width = "15rem";
+                productElement.style.textAlign = "center";
 
-            productElement.innerHTML = `
-                 <a href="shop/${productSlug}" target="_blank">
-                    <img src="${productImgSrc}" alt="${productImgAlt}">
-                </a>
-                <p>${productImgAlt}</p>
-            `;
+                productElement.innerHTML = `
+                    <a href="shop/${productSlug}" target="_blank">
+                        <img src="${productImgSrc}" alt="${productImgAlt}">
+                    </a>
+                    <p>${productImgAlt}</p>
+                `;
 
-            navigationContainer.appendChild(productElement);
+                navigationContainer.appendChild(productElement);
             }
-           
         }
         }
     });
